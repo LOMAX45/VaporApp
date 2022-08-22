@@ -24,7 +24,7 @@ class AuthController {
     
     func login(_ req: Request) throws -> EventLoopFuture<LoginResponse> {
         guard let body = try? req.content.decode(LoginRequest.self) else {
-            throw Abort(.custom(code: 404, reasonPhrase: "Что-то пошло не так"))
+            throw Abort(.custom(code: 404, reasonPhrase: "Неправильные имя пользователя или пароль"))
         }
         print(body)
         
@@ -33,7 +33,7 @@ class AuthController {
                                                 user_login: "geekbrains",
                                                 user_name: "John",
                                                 user_lastname: "Doe"),
-                                     errorMessage: "Неправильные имя пользователя или пароль")
+                                     errorMessage: nil)
         
         return req.eventLoop.future(response)
     }
