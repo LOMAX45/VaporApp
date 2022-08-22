@@ -1,5 +1,5 @@
 //
-//  AuthController.swift
+//  RegController.swift
 //  
 //
 //  Created by Максим Лосев on 22.08.2022.
@@ -7,7 +7,7 @@
 
 import Vapor
 
-class AuthController {
+class RegController {
     
     func register(_ req: Request) throws -> EventLoopFuture<RegisterResponse> {
         guard let body = try? req.content.decode(RegisterRequest.self) else {
