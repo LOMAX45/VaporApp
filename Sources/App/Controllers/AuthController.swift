@@ -37,4 +37,28 @@ class AuthController {
         
         return req.eventLoop.future(response)
     }
+    
+    func change(_ req: Request) throws -> EventLoopFuture<ChangeResponse> {
+        guard let body = try? req.content.decode(ChangeRequest.self) else {
+            throw Abort(.custom(code: 404, reasonPhrase: "Невозможно изменить указанные данные"))
+        }
+        print(body)
+        
+        let response = ChangeResponse(result: 1,
+                                      errorMessage: nil)
+        
+        return req.eventLoop.future(response)
+    }
+    
+    func logout(_ req: Request) throws -> EventLoopFuture<LogoutResponse> {
+        guard let body = try? req.content.decode(LogoutRequest.self) else {
+            throw Abort(.custom(code: 404, reasonPhrase: "Неудалось выйти из профиля"))
+        }
+        print(body)
+        
+        let response = LogoutResponse(result: 1,
+                                      errorMessage: nil)
+        
+        return req.eventLoop.future(response)
+    }
 }
