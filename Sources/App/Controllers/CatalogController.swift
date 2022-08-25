@@ -9,7 +9,7 @@ import Vapor
 
 class CatalogController {
     
-    func catalogData(_ req: Request) throws -> EventLoopFuture<[ListItem]> {
+    func catalogData(_ req: Request) throws -> EventLoopFuture<CatalogDataResponse> {
         guard let body = try? req.content.decode(CatalogDataRequest.self) else {
             throw Abort(.custom(code: 404, reasonPhrase: "Что-то пошло не так"))
         }
@@ -20,7 +20,10 @@ class CatalogController {
         ListItem(id_product: 456, product_name: "мышка", price: 1000)
         ]
         
-        let response = products
+        let response = CatalogDataResponse(page_number: 1,
+                                           products: products,
+                                           result: nil,
+                                           errorMessage: nil)
         
         return req.eventLoop.future(response)
     }
